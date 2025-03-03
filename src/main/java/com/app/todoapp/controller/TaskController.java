@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,20 @@ public class TaskController {
 		
 		return "redirect:/tasks/";  // AFTER THE POST REQUEST IS MADE, THE PAGE IS REDIRECTED TO THE /tasks/ which GET Mapping is listening to.
 		
+	}
+	
+	@GetMapping("/{id}/delete")
+	public String deleteTasks(@PathVariable Long id) {  // SINCE WE ARE GETTING SOMETHING FROM PATH, {id} here, SO PATH VARIABLE
+		
+		taskService.deleteTask(id);
+		return "redirect:/tasks/"; // would render tasks.html under resouces/ templates
+	}
+	
+	@GetMapping("/{id}/toggle")
+	public String toggleTasks(@PathVariable Long id) {  // SINCE WE ARE GETTING SOMETHING FROM PATH, {id} here, SO PATH VARIABLE
+		
+		taskService.toggleTask(id);
+		return "redirect:/tasks/"; // would render tasks.html under resouces/ templates
 	}
 
 }
